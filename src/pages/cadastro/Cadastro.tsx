@@ -3,6 +3,7 @@ import type Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service'
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
+import { ToastAlerta } from '../../utils/ToastAlerta'
 
 
 
@@ -29,6 +30,7 @@ function Cadastro() {
   }, [usuario])
 
   function retornar() {
+    
     navigate('/login')
   }
 
@@ -52,9 +54,9 @@ function Cadastro() {
 
       try {
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
-        alert('Usuario cadastrado com sucesso!')
+        ToastAlerta('Usuario cadastrado com sucesso!', 'sucesso')
       } catch (error) {
-        alert('Erro ao cadastrar o usuario!')
+        ToastAlerta('Erro ao cadastrar o usuario!', 'erro')
       }
     } else {
       alert('Dados do usuario inconsistentes! Verifique as informações do cadastro.')
@@ -70,7 +72,8 @@ function Cadastro() {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
             place-items-center font-bold">
-        <div className="fundoCadastro hidden lg:block"></div>
+        <div className="bg-[url('https://i.imgur.com/ZZFAmzo.jpg')] lg:block hidden bg-no-repeat 
+                    w-full min-h-screen bg-cover bg-center"></div>
         <form className='flex justify-center items-center flex-col w-2/3 gap-3'
           onSubmit={cadastrarNovoUsuario}>
           <h2 className='text-slate-900 text-5xl'>Cadastrar</h2>
